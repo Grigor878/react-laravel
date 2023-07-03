@@ -25,14 +25,14 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleRegister} className='register-form'>
+        <form onSubmit={handleRegister} autoComplete="off" className='register-form' >
             <Input id="registerName" type="text" placeholder="Name" />
             <Input id="registerEmail" type="email" placeholder="Email" />
             <Input id="registerPassword" type="password" placeholder="Password" />
             <SubmitBtn text="Enter" />
 
             <button onClick={() => navigate(-1)} className="register-form__link">
-               Back to Log-In Page
+                Back to Log-In Page
             </button>
         </form>
     )
