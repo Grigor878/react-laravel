@@ -25,13 +25,13 @@ const Form = () => {
             <Input
                 id="loginEmail"
                 type="email"
-                placeholder="Enter your email"
+                placeholder="Email"
                 name="email"
             />
             <Input
                 id="loginPassword"
                 type="text"
-                placeholder="Enter your password"
+                placeholder="Password"
                 name="password"
             />
             <SubmitBtn text="Enter" />
