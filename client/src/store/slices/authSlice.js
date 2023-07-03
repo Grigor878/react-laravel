@@ -12,7 +12,7 @@ const initialState = {
 export const register = createAsyncThunk(
   "auth",
   async ({ name, email, password }) => {
-    const res = await baseApi.post("/api/signup", {
+    const res = await baseApi.post("/api/register", {
       name,
       email,
       password,
