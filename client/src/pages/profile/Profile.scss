@@ -8,4 +8,16 @@
     font-size: 22px;
     letter-spacing: 0.5px;
   }
+
+  &__info {
+    margin-top: 33px;
+    @include flexCol;
+    align-items: center;
+    gap: 22px;
+
+    img {
+      width: 101px;
+      height: 101px;
+    }
+  }
 }

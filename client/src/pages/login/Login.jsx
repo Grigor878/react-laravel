@@ -11,7 +11,7 @@ const Login = () => {
       {loading
         ? <p>Loading</p>
         : <>
-          <h3>Login</h3>
+          <h3>Log-In</h3>
           <Form />
         </>}
     </div >

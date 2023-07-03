@@ -92,7 +92,7 @@ class AuthController extends Controller
             return response()->json([
                 'status' => true,
                 'message' => 'User Logged In Successfully',
-                'remember_token' => $user->createToken("API TOKEN")->plainTextToken
+                'access_token' => $user->createToken("API TOKEN")->plainTextToken
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([

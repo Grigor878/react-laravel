@@ -4,6 +4,7 @@ import Form from './form/Form'
 import './Register.scss'
 
 const Register = () => {
+
     return (
         <div className='register'>
             <h3>Registration</h3>

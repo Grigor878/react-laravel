@@ -68,8 +68,8 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.loginLoading = false;
-        state.token = action.payload.remember_token;
-        localStorage.setItem("token", action.payload.remember_token);
+        state.token = action.payload.access_token;
+        localStorage.setItem("token", action.payload.access_token);
         success("Welcome");
       });
   },

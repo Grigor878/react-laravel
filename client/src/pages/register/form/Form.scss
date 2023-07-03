@@ -3,4 +3,10 @@
 .register-form {
   @include flexCol;
   gap: 25px;
+
+  &__link {
+    background: transparent;
+    text-align: center;
+    color: $blue;
+  }
 }
