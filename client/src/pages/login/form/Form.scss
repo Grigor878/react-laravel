@@ -1,0 +1,11 @@
+@import "../../../variables";
+
+.login-form {
+  @include flexCol;
+  gap: 25px;
+
+  &__link {
+    text-align: center;
+    color: $blue;
+  }
+}

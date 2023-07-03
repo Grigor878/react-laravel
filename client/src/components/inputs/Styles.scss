@@ -1,0 +1,14 @@
+@import "../../variables";
+
+.input {
+  padding: 9px;
+  border: 1px solid $textSmall;
+  border-radius: 4px;
+}
+
+.submit-btn {
+  background: $blue;
+  border-radius: 4px;
+  padding: 9px;
+  color: $bgSub;
+}
