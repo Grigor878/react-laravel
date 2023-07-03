@@ -6,18 +6,21 @@ import Button from '../../components/inputs/Button'
 import user from '../../assets/imgs/user.png'
 
 const Profile = () => {
-  const { token } = useSelector(state => state.auth)
+  const { userInfo } = useSelector(state => state.auth)
   const dispatch = useDispatch()
+  console.log(userInfo);
 
   return (
     <div className='profile'>
       <h3>Welcome to personal page.</h3>
 
-      <div className='profile__info'>
-        <img src={user} alt="add img" />
-        <p>Your token is - {token}</p>
-        <Button text="Log-Out" onClick={() => dispatch(logout())} />
-      </div>
+      {userInfo &&
+        <div className='profile__info'>
+          <img src={user} alt="add img" />
+          <p>{userInfo?.name}</p>
+          <Button text="Log-Out" onClick={() => dispatch(logout())} />
+        </div>
+      }
     </div>
   )
 }

@@ -7,6 +7,7 @@ const initialState = {
   isLoggedIn: !!localStorage.getItem("token"),
   loginLoading: false,
   token: localStorage.getItem("token") || null,
+  userInfo: null,
 };
 
 export const register = createAsyncThunk(
@@ -68,8 +69,9 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.loginLoading = false;
-        state.token = action.payload.access_token;
-        localStorage.setItem("token", action.payload.access_token);
+        state.userInfo = action.payload.data.user;
+        state.token = action.payload.data.access_token;
+        localStorage.setItem("token", action.payload.data.access_token);
         success("Welcome");
       });
   },
