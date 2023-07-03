@@ -21,7 +21,7 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleLogin} autoComplete="off" className='login-form'>
+        <form onSubmit={handleLogin} className='login-form'>
             <Input
                 id="loginEmail"
                 type="email"
@@ -30,7 +30,7 @@ const Form = () => {
             />
             <Input
                 id="loginPassword"
-                type="text"
+                type="password"
                 placeholder="Password"
                 name="password"
             />
