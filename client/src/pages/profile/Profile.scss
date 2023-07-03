@@ -1,0 +1,11 @@
+@import "../../variables";
+
+.profile {
+  @include flexColCenter;
+  padding: 70px 0;
+
+  h3 {
+    font-size: 22px;
+    letter-spacing: 0.5px;
+  }
+}

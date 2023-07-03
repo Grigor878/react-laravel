@@ -55,7 +55,6 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state) => {
         state.registerLoading = false;
-        // state.token = action.payload.remember_token;
         success("You are registered.");
       })
       //login
@@ -69,8 +68,8 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.loginLoading = false;
-        // state.token = action.payload.token;
-        // localStorage.setItem("token", action.payload.token);
+        state.token = action.payload.remember_token;
+        localStorage.setItem("token", action.payload.remember_token);
         success("Welcome");
       });
   },
