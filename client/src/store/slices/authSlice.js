@@ -11,11 +11,12 @@ const initialState = {
 
 export const register = createAsyncThunk(
   "auth",
-  async ({ name, email, password }) => {
+  async ({ name, email, password, token }) => {
     const res = await baseApi.post("/api/register", {
       name,
       email,
       password,
+      token,
     });
     return res.data;
   }
@@ -54,6 +55,7 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state) => {
         state.registerLoading = false;
+        // state.token = action.payload.remember_token;
         success("You are registered.");
       })
       //login
@@ -67,7 +69,7 @@ const authSlice = createSlice({
       .addCase(login.fulfilled, (state, action) => {
         state.isLoggedIn = true;
         state.loginLoading = false;
-        state.token = action.payload.token;
+        // state.token = action.payload.token;
         // localStorage.setItem("token", action.payload.token);
         success("Welcome");
       });
