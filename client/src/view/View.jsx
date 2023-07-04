@@ -4,8 +4,10 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-d
 import Login from '../pages/login/Login'
 import NotFound from '../pages/notFound/NotFound'
 import Register from '../pages/register/Register'
+import Layout from '../components/layout/Layout'
 
 const Profile = lazy(() => import('../pages/profile/Profile'))
+const Blog = lazy(() => import('../pages/profile/pages/Blog'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
@@ -14,10 +16,17 @@ const View = () => {
         <Router>
             <Suspense fallback={<p>Loading...</p>}>
                 <Routes>
-                    <Route index path="/" element={isLoggedIn && token ? <Navigate to="/profile" /> : <Navigate to="/login" />} />
-                    <Route path="/login" element={isLoggedIn && token ? <Navigate to="/profile" /> : <Login />} />
-                    <Route path="/register" element={<Register/>} />
-                    <Route path="/profile" element={isLoggedIn && token ? <Profile /> : <Navigate to="/login" />} />
+                    <Route path="/" element={isLoggedIn && token ? <Layout /> : <Navigate to="/login" />}>
+                        <Route index path="/profile" element={<Profile />} />
+                        <Route path="/profile/blog" element={<Blog />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+
+                    <Route path="/login">
+                        <Route index element={isLoggedIn && token ? <Navigate to="/profile" /> : <Login />} />
+                        <Route path="*" element={<NotFound />} />
+                    </Route>
+                    <Route path="/register" element={<Register />} />
                     <Route path="*" element={<NotFound />} />
                 </Routes>
             </Suspense>

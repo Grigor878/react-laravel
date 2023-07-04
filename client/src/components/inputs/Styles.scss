@@ -6,10 +6,29 @@
   border-radius: 4px;
 }
 
-.submit-btn,
-.click-btn {
+.submit-btn {
   background: $blue;
   border-radius: 4px;
   padding: 9px;
   color: $bgSub;
+}
+
+.click-btn {
+  background: $red;
+  border-radius: 4px;
+  padding: 9px;
+  color: $bgSub;
+}
+
+.imgUpload {
+  cursor: pointer;
+
+  input {
+    display: none;
+  }
+
+  img {
+    border: 1px solid $textSub;
+    border-radius: 50%;
+  }
 }

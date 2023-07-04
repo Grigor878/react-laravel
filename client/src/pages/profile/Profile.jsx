@@ -1,21 +1,21 @@
 import React, { useState } from 'react'
 import './Profile.scss'
 import { useSelector, useDispatch } from 'react-redux'
-import { logout } from '../../store/slices/authSlice'
-import Button from '../../components/inputs/Button'
-import user from '../../assets/imgs/user.png'
+import { ImgUpload } from '../../components/inputs/ImgUpload'
+import { setUserImg } from '../../store/slices/authSlice'
 import baseApi from '../../apis/baseApi'
-import { getAxiosConfig } from '../../apis/config'
+import { API_BASE_URL, getAxiosConfig } from '../../apis/config'
 import { error, success } from '../../components/swal/swal'
+import moment from 'moment'
 
 const Profile = () => {
-  const { userInfo } = useSelector(state => state.auth)
+  const { userInfo, userImg } = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  // console.log(userInfo)//
+  console.log(userInfo)//
 
+  const [avatar, setAvatar] = useState(userImg?.img ? userImg?.img : userInfo?.img)
   const [uploaded, setUploaded] = useState([])
   const [avatarUrl, setAvatarUrl] = useState([])
-
 
   const uploadImage = (e) => {
     setUploaded(e.target.files[0])
@@ -27,10 +27,9 @@ const Profile = () => {
       return URL.createObjectURL(file)
     }))
   }
-  console.log(uploaded)//
-  console.log(avatarUrl)//
 
   const removeAvatar = () => {
+    setAvatar()
     setAvatarUrl([])
     setUploaded([])
   }
@@ -44,34 +43,52 @@ const Profile = () => {
 
     baseApi.post('/api/uploadImg', formData, getAxiosConfig())
       .then((res) => {
-        console.log(res.data)
+        success(res.data.success)
+        const img = res.data.data.avatar
+        dispatch(setUserImg({ img }))
+        setUploaded([])
+        setAvatar(img)
       })
       .catch(err => error(err.message))
-      .finally(() => {
-        // setLoading(false)
-        // navigate(-1)
-        success('Img Uploaded')
-      })
   }
 
   return (
     <div className='profile'>
-      <h3>Welcome to personal page.</h3>
+      <div className="container">
+        <h3>Username - {userInfo?.name}</h3>
 
-      {userInfo &&
         <div className='profile__info'>
-          <input
-            type='file'
-            name='Avatar'
-            onChange={uploadImage}
-            accept='image/png , image/jpeg , image/jpg , image.webp'
-          />
-          <button onClick={() => removeAvatar()}>Reomove img</button>
-          <button onClick={(e) => handleSubmit(e)}>Save</button>
-          <p>{userInfo?.name}</p>
-          <Button text="Log-Out" onClick={() => dispatch(logout())} />
+          {avatar && avatarUrl.length === 0
+            ? <div className='profile__info-uploaded'>
+              <img src={API_BASE_URL + '/images/' + avatar} alt="User" />
+              <button
+                onClick={removeAvatar}
+              >X</button>
+            </div>
+            : null
+          }
+          {!avatarUrl.length === 0 || !avatar
+            ? <ImgUpload onChange={uploadImage} />
+            : avatarUrl.map((img, index) => {
+              return (
+                <div key={index} className='profile__info-uploaded'>
+                  <img src={img} alt="Uploaded Avatar" />
+                  <button
+                    onClick={removeAvatar}
+                  >X</button>
+                </div>
+              )
+            })
+          }
+
+          {uploaded.length !== 0 &&
+            <button className='profile__info-btnSave' onClick={(e) => handleSubmit(e)}>Save</button>
+          }
+
+          <span>Created {moment(userInfo?.created_at).fromNow()}</span>
+          <span>Last update {moment(userInfo?.updated_at).fromNow()}</span>
         </div>
-      }
+      </div>
     </div>
   )
 }
@@ -79,24 +96,16 @@ const Profile = () => {
 export default Profile
 
 
-// {!avatarUrl.length === 0
-//   ? <label className='imgUpload'>
-//     <img src={user} alt="Choose Avatar" />
-//     <input
-//       type='file'
-//       name='Avatar'
-//       onChange={uploadImage}
-//       accept='image/png , image/jpeg , image/jpg , image.webp'
-//     // multiple
-//     />
-//   </label>
+// {uploaded.length === 0
+//   ? <ImgUpload onChange={uploadImage} />
 //   : avatarUrl.map((img, index) => {
 //     return (
-//       <div key={index} className='subUsers__uploaded'>
-//         <img src={img} alt="Uploaded Avatar" />
-//         {/* <button
+//       <div key={index} className='profile__info-uploaded'>
+//         <img src={userInfo?.photo ? API_BASE_URL + '/images/' + userInfo?.photo : img} alt="Uploaded Avatar" />
+//         <button
 //           onClick={removeAvatar}
-//         ><RiDeleteBin5Fill /></button> */}
+//         >X</button>
 //       </div>
 //     )
-//   })}
+//   })
+// }

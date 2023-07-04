@@ -1,0 +1,12 @@
+@import '../../../variables';
+
+.blog{
+    padding: 70px 0;
+
+    &__upload{
+        @include flexCol;
+        gap: 22px;
+        width: fit-content;
+        margin-top: 33px;
+    }
+}

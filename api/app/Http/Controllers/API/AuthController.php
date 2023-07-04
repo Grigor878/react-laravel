@@ -79,7 +79,7 @@ class AuthController extends Controller
                     'errors' => $validateUser->errors()
                 ], 401);
             }
-            
+
             $credentials = $request->only(['email', 'password']);
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
@@ -91,21 +91,38 @@ class AuthController extends Controller
                         'access_token' => $accessToken,
                         'message' => 'User Logged In Successfully',
                     ]
-                    
+
                 ], 200);
-               
             }
 
-             return response()->json([
-                    'status' => false,
-                    'message' => 'Email & Password does not match with our record.',
-                ], 401);
-           
+            return response()->json([
+                'status' => false,
+                'message' => 'Email & Password does not match with our record.',
+            ], 401);
         } catch (\Throwable $th) {
             return response()->json([
                 'status' => false,
                 'message' => $th->getMessage()
             ], 500);
         }
+    }
+
+    // public function logout(Request $request)
+    // {
+    //     dd($request->user()->currentAccessToken());
+    //     $request->user()->currentAccessToken()->delete();
+    //     return response(['message' => 'Successfully Logging out']);
+    // }
+
+    public function logout(Request $request)
+    {
+        // $accessToken = auth()->user()->token();
+        $accessToken = $request->user()->currentAccessToken()->delete();
+        $token = $request->user()->tokens->find($accessToken);
+        $token->revoke();
+
+        return response([
+            'message' => 'You have been successfully logged out.',
+        ], 200);
     }
 }

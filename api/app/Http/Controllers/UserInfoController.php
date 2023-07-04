@@ -13,6 +13,17 @@ class UserInfoController extends Controller
         if($request->file){
             $request->file->move(public_path('images'), $request->file->getClientOriginalName());
         }
-        dd($data, Auth::user());
+        $user = Auth::user();
+        $user->photo = $request->file->getClientOriginalName();
+
+        
+        if($user->save()){
+            return response()->json([
+                'success' => 'Img Uploaded',
+                'data' => [
+                    'avatar' => $user->photo
+                ],
+            ]);
+        }
     }
 }

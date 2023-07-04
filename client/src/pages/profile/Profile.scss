@@ -1,7 +1,6 @@
 @import "../../variables";
 
 .profile {
-  @include flexColCenter;
   padding: 70px 0;
 
   h3 {
@@ -12,12 +11,33 @@
   &__info {
     margin-top: 33px;
     @include flexCol;
-    align-items: center;
     gap: 22px;
+    width: fit-content;
 
     img {
-      width: 101px;
-      height: 101px;
+      width: 303px;
+      height: 303px;
+      border-radius: 50%;
+    }
+
+    &-uploaded {
+      position: relative;
+
+      button {
+        position: absolute;
+        top: 0px;
+        right: 0px;
+        background: $red;
+        color: $bgSub;
+        padding: 7px;
+        border-radius: 7px;
+      }
+    }
+
+    &-btnSave {
+      background: transparent;
+      font-size: 16px;
+      color: $blue;
     }
   }
 }
