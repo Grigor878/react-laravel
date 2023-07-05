@@ -12,8 +12,10 @@ const Profile = () => {
   const { userInfo, userImg } = useSelector(state => state.auth)
   const dispatch = useDispatch()
   console.log(userInfo)//
+  console.log(userImg)//
 
-  const [avatar, setAvatar] = useState(userImg?.img ? userImg?.img : userInfo?.img)
+  // const [avatar, setAvatar] = useState(userImg?.img === userInfo?.photo ? userImg?.img : userInfo?.photo)
+  const [avatar, setAvatar] = useState(userImg?.img ? userImg?.img : userInfo?.photo)
   const [uploaded, setUploaded] = useState([])
   const [avatarUrl, setAvatarUrl] = useState([])
 
@@ -43,11 +45,11 @@ const Profile = () => {
 
     baseApi.post('/api/uploadImg', formData, getAxiosConfig())
       .then((res) => {
-        success(res.data.success)
         const img = res.data.data.avatar
+        setAvatar(img)
+        success(res.data.success)
         dispatch(setUserImg({ img }))
         setUploaded([])
-        setAvatar(img)
       })
       .catch(err => error(err.message))
   }

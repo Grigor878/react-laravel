@@ -61,7 +61,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return User
      */
-    public function loginUser(Request $request)
+    public function login(Request $request)
     {
         try {
             $validateUser = Validator::make(
@@ -114,12 +114,21 @@ class AuthController extends Controller
     //     return response(['message' => 'Successfully Logging out']);
     // }
 
+    // public function logout(Request $request)
+    // {
+    //     // $accessToken = auth()->user()->token();
+    //     $accessToken = $request->user()->currentAccessToken()->delete();
+    //     $token = $request->user()->tokens->find($accessToken);
+    //     $token->revoke();
+
+    //     return response([
+    //         'message' => 'You have been successfully logged out.',
+    //     ], 200);
+    // }
+
     public function logout(Request $request)
     {
-        // $accessToken = auth()->user()->token();
-        $accessToken = $request->user()->currentAccessToken()->delete();
-        $token = $request->user()->tokens->find($accessToken);
-        $token->revoke();
+        $request->user()->tokens()->delete();
 
         return response([
             'message' => 'You have been successfully logged out.',

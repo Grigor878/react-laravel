@@ -7,13 +7,19 @@
   &__nav {
     @include flex;
     justify-content: space-between;
-    padding: 5px 0;
+    padding: 8px 0;
 
-    img {
-      width: 77px;
-      height: 77px;
-      border-radius: 50%;
-      object-fit: cover;
+    // img {
+    //   width: 77px;
+    //   height: 77px;
+    //   border-radius: 50%;
+    //   object-fit: cover;
+    // }
+
+    p {
+      font-size: 25px;
+      letter-spacing: 0.7px;
+      font-weight: 600;
     }
   }
 
@@ -25,4 +31,8 @@
   &__navlink {
     color: $bgSub;
   }
+}
+
+.active {
+  border-bottom: 1px solid white;
 }

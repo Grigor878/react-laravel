@@ -16,5 +16,6 @@ class VerifyCsrfToken extends Middleware
         'http://blog-api.loc/api/login',
         'http://blog-api.loc/api/uploadImg',
         'http://blog-api.loc/api/logout',
+        'http://blog-api.loc/api/blog',
     ];
 }

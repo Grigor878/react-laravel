@@ -7,6 +7,6 @@ export const routes = [
   {
     id: "1",
     name: "Blog",
-    to: "/profile/blog",
+    to: "/blog",
   },
 ];

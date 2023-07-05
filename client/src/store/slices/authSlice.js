@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import baseApi from "../../apis/baseApi";
 import { error, success } from "../../components/swal/swal";
-import { getAxiosConfig } from "../../apis/config";
+import { APP_BASE_URL, getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   registerLoading: false,
@@ -68,9 +68,14 @@ const authSlice = createSlice({
         state.registerLoading = false;
         error(`Error: ${action.error.message}`);
       })
-      .addCase(register.fulfilled, (state) => {
+      .addCase(register.fulfilled, (state, action) => {
         state.registerLoading = false;
-        success("You are registered.");
+        success(action.payload.message);
+        if (action.payload.status === true) {
+          setTimeout(() => {
+            window.location.replace(`${APP_BASE_URL}/login`);
+          }, 1000);
+        }
       })
       //login
       .addCase(login.pending, (state) => {
@@ -91,8 +96,9 @@ const authSlice = createSlice({
       .addCase(logout.fulfilled, (state, action) => {
         state.isLoggedIn = false;
         state.token = null;
+        state.userImg = null;
         localStorage.removeItem("token");
-        console.log(action.payload); //
+        // console.log(action.payload.message); //
       });
   },
 });

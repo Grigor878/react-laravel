@@ -11,9 +11,19 @@ class Blog extends Model
 
     protected $fillable = [
         'id',
-        'user',
+        'user_id',
         'title',
         'description',
         'imgs'
-    ]
+    ];
+
+    public function user()
+    {
+        return $this->hasOne(Blog::class);
+    }
+
+    // public function user()
+    // {
+    //     return $this->belongsTo(User::class, 'user_id');
+    // }
 }

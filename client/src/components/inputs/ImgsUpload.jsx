@@ -6,7 +6,7 @@ export const ImgsUpload = ({ onChange }) => {
             Upload Imgs
             <input
                 type='file'
-                name='Avatar'
+                name='images'
                 onChange={onChange}
                 accept='image/png , image/jpeg , image/jpg , image.webp'
                 multiple

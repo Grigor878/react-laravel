@@ -7,7 +7,7 @@ import Register from '../pages/register/Register'
 import Layout from '../components/layout/Layout'
 
 const Profile = lazy(() => import('../pages/profile/Profile'))
-const Blog = lazy(() => import('../pages/profile/pages/Blog'))
+const Blog = lazy(() => import('../pages/blog/Blog'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
@@ -18,7 +18,7 @@ const View = () => {
                 <Routes>
                     <Route path="/" element={isLoggedIn && token ? <Layout /> : <Navigate to="/login" />}>
                         <Route index path="/profile" element={<Profile />} />
-                        <Route path="/profile/blog" element={<Blog />} />
+                        <Route path="/blog" element={<Blog />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
 
