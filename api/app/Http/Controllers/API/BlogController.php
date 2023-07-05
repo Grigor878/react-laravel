@@ -15,9 +15,13 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
+        dd($request->all());
         $user = Auth::user();
+
+        dd($user);
+
         $blogs = $user->blog;
 
         return response()->json([

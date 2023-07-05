@@ -25,8 +25,14 @@ Route::controller(AuthController::class)->group(function () {
 });
 
 
-// Route::resource('blog', BlogController::class);
-Route::resource('blog', BlogController::class)->middleware('auth:sanctum');
+Route::controller(BlogController::class)->group(function () {
+    Route::post('blog', [BlogController::class, 'index']);
+    // Route::post('login', [AuthController::class, 'login']);
+    // Route::post('logout', [AuthController::class, 'logout']);
+});
+
+
+// Route::resource('blog', BlogController::class)->middleware('auth:sanctum');
 
 Route::middleware(['auth:sanctum'])->group(function () {
     Route::post('uploadImg', [UserInfoController::class, 'uploadImg']);
