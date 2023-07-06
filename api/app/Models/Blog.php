@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\BlogImage;
 
 class Blog extends Model
 {
@@ -18,7 +20,12 @@ class Blog extends Model
 
     public function user()
     {
-        return $this->hasOne(Blog::class);
+        return $this->hasOne(User::class);
+    }
+
+    public function images()
+    {
+        return $this->hasMany(BlogImage::class);
     }
 
     // public function user()

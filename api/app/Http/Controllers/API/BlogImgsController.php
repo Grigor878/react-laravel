@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blog;
+use Facade\Ignition\DumpRecorder\Dump;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -10,20 +12,42 @@ class BlogImgsController extends Controller
 {
     public function uploadBlogImgs(Request $request)
     {
-        // $data = $request->all();
+        $data = $request->all();
+        dD($data);
+
+        $file = $request->file('file');
+        dd($file);
+
+        if($request->hasFile('file'))
+        {
+            // foreach ($files as $file) {
+            // }
+        }
+
+        dd('end');
+
+
+
+        dump($data);
+        dd($request->file('files'));
         if ($request->file) {
             $request->file->move(public_path('images'), $request->file->getClientOriginalName());
         }
-        $user = Auth::user();
-        dd($user);
-        // dd($request->file);
-        $user->photo = $request->file->getClientOriginalName();
 
-        if ($user->save()) {
+        dd($request->file);
+
+
+
+        // $blog = Blog::imgs();
+        dd($blog);
+        // dd($request->file);
+        $blog->imgs = $request->file->getClientOriginalName();
+
+        if ($blog->save()) {
             return response()->json([
                 'message' => 'Imgs Uploaded',
                 'data' => [
-                    'img' => $user->photo
+                    'img' => $blog->photo
                 ],
             ]);
         }

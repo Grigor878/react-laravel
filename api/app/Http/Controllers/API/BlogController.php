@@ -61,7 +61,9 @@ class BlogController extends Controller
             'title' => 'required',
             'description' => 'required',
             // 'imgs' => 'required',
+            'imgs' => '',
         ]);
+
 
         $validatedData['user_id'] = Auth::id();
 
