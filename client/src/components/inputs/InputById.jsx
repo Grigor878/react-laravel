@@ -1,17 +1,16 @@
 import React from 'react'
 import './Styles.scss'
 
-const Input = ({ type, placeholder, value, onChange }) => {
+const InputById = ({ id, type, placeholder }) => {
     return (
         <input
+            id={id}
             type={type}
             placeholder={placeholder}
             required
             className='input'
-            defaultValue={value}
-            onChange={onChange}
         />
     )
 }
 
-export default Input
+export default InputById

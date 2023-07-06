@@ -15,19 +15,21 @@ class BlogController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
     public function index(Request $request)
     {
-        dd($request->all());
+        // dd($request->all());
         $user = Auth::user();
 
-        dd($user);
-
-        $blogs = $user->blog;
+        $blogs = Blog::where('user_id', $user->id)->get();
 
         return response()->json([
             'data' => $blogs,
             'message' => 'Blogs retrieved successfully',
         ], 200);
+        // return response()->json([
+        //     $blogs,
+        // ], 200);
     }
 
     /**
@@ -58,7 +60,7 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'imgs' => 'required',
+            // 'imgs' => 'required',
         ]);
 
         $validatedData['user_id'] = Auth::id();

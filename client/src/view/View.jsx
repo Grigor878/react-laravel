@@ -8,6 +8,7 @@ import Layout from '../components/layout/Layout'
 
 const Profile = lazy(() => import('../pages/profile/Profile'))
 const Blog = lazy(() => import('../pages/blog/Blog'))
+const CustomEdit = lazy(() => import('../pages/blog/components/edit/CustomEdit'))
 
 const View = () => {
     const { isLoggedIn, token } = useSelector((state) => state.auth)
@@ -19,6 +20,7 @@ const View = () => {
                     <Route path="/" element={isLoggedIn && token ? <Layout /> : <Navigate to="/login" />}>
                         <Route index path="/profile" element={<Profile />} />
                         <Route path="/blog" element={<Blog />} />
+                        <Route path="/blog/edit/:id" element={<CustomEdit />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>
 

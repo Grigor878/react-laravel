@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { register } from '../../../store/slices/authSlice'
-import Input from '../../../components/inputs/Input'
+import InputById from '../../../components/inputs/InputById'
 import SubmitBtn from '../../../components/inputs/SubmitBtn'
 import './Form.scss'
 import { useNavigate } from 'react-router-dom'
@@ -26,9 +26,9 @@ const Form = () => {
 
     return (
         <form onSubmit={handleRegister} autoComplete="off" className='register-form' >
-            <Input id="registerName" type="text" placeholder="Name" />
-            <Input id="registerEmail" type="email" placeholder="Email" />
-            <Input id="registerPassword" type="password" placeholder="Password" />
+            <InputById id="registerName" type="text" placeholder="Name" />
+            <InputById id="registerEmail" type="email" placeholder="Email" />
+            <InputById id="registerPassword" type="password" placeholder="Password" />
             <SubmitBtn text="Enter" />
 
             <button onClick={() => navigate(-1)} className="register-form__link">

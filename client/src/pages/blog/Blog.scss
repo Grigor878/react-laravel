@@ -1,12 +1,47 @@
-@import '../../variables';
+@import "../../variables";
 
-.blog{
-    padding: 70px 0;
+.blog {
+  // &__upload{
+  //     @include flexCol;
+  //     gap: 22px;
+  //     width: fit-content;
+  //     margin-top: 33px;
+  // }
 
-    &__upload{
-        @include flexCol;
-        gap: 22px;
-        width: fit-content;
-        margin-top: 33px;
+  &__tab {
+    @include flexCol;
+    gap: 50px;
+    position: sticky;
+    top: 0;
+    z-index: 99;
+    background: $bgAdmin;
+
+    &-list {
+      @include flexCenter;
+      gap: 33px;
+      padding: 22px 0;
     }
+
+    &-link {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      color: $blue;
+      cursor: pointer;
+      @include transition;
+      padding: 11px 28px;
+      border-bottom: 2px solid transparent;
+    }
+
+    &-linkActive {
+      font-weight: 500;
+      font-size: 16px;
+      line-height: 22px;
+      color: $blue;
+      cursor: pointer;
+      @include transition;
+      padding: 11px 28px;
+      border-bottom: 2px solid $blue;
+    }
+  }
 }

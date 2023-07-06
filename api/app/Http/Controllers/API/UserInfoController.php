@@ -10,11 +10,11 @@ class UserInfoController extends Controller
 {
     public function uploadImg(Request $request)
     {
-        $data = $request->all();
         if($request->file){
             $request->file->move(public_path('images'), $request->file->getClientOriginalName());
         }
         $user = Auth::user();
+        // dd($request->file);
         $user->photo = $request->file->getClientOriginalName();
 
         

@@ -11,13 +11,13 @@ import moment from 'moment'
 const Profile = () => {
   const { userInfo, userImg } = useSelector(state => state.auth)
   const dispatch = useDispatch()
-  console.log(userInfo)//
-  console.log(userImg)//
 
   // const [avatar, setAvatar] = useState(userImg?.img === userInfo?.photo ? userImg?.img : userInfo?.photo)
   const [avatar, setAvatar] = useState(userImg?.img ? userImg?.img : userInfo?.photo)
   const [uploaded, setUploaded] = useState([])
   const [avatarUrl, setAvatarUrl] = useState([])
+
+  console.log(uploaded)//
 
   const uploadImage = (e) => {
     setUploaded(e.target.files[0])
@@ -42,6 +42,8 @@ const Profile = () => {
     const formData = new FormData()
     formData.append('file', uploaded)
     formData.append('fileName', uploaded?.name)
+
+    
 
     baseApi.post('/api/uploadImg', formData, getAxiosConfig())
       .then((res) => {

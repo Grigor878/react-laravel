@@ -43,10 +43,11 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
+            // $accessToken = $user->createToken("API TOKEN")->accessToken;
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
-                'remember_token' => $user->createToken("API TOKEN")->plainTextToken
+                // 'remember_token' => $accessToken
             ], 200);
         } catch (\Throwable $th) {
             return response()->json([
@@ -83,7 +84,8 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password']);
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
-                $accessToken = $user->createToken('API TOKEN')->plainTextToken;
+                $accessToken = $user->createToken('API TOKEN')->accessToken;
+                
                 return response()->json([
                     'status' => true,
                     'data' => [
@@ -128,7 +130,8 @@ class AuthController extends Controller
 
     public function logout(Request $request)
     {
-        $request->user()->tokens()->delete();
+        // dd($request->all());
+        $request->user()->Authorization()->delete();
 
         return response([
             'message' => 'You have been successfully logged out.',

@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { NavLink } from 'react-router-dom'
 import { login } from '../../../store/slices/authSlice'
-import Input from '../../../components/inputs/Input'
+import InputById from '../../../components/inputs/InputById'
 import SubmitBtn from '../../../components/inputs/SubmitBtn'
 import './Form.scss'
 
@@ -22,13 +22,13 @@ const Form = () => {
 
     return (
         <form onSubmit={handleLogin} className='login-form'>
-            <Input
+            <InputById
                 id="loginEmail"
                 type="email"
                 placeholder="Email"
                 name="email"
             />
-            <Input
+            <InputById
                 id="loginPassword"
                 type="password"
                 placeholder="Password"

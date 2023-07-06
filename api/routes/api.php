@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\API\AuthController;
-use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\UserInfoController;
+use App\Http\Controllers\API\BlogController;
+use App\Http\Controllers\API\BlogImgsController;
 
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
@@ -24,16 +25,15 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-
-Route::controller(BlogController::class)->group(function () {
-    Route::post('blog', [BlogController::class, 'index']);
-    // Route::post('login', [AuthController::class, 'login']);
-    // Route::post('logout', [AuthController::class, 'logout']);
-});
+// Route::controller(BlogController::class)->group(function () {
+//     Route::post('blog', [BlogController::class, 'index']);
+// });
 
 
-// Route::resource('blog', BlogController::class)->middleware('auth:sanctum');
-
-Route::middleware(['auth:sanctum'])->group(function () {
+Route::middleware(['auth:api'])->group(function () {
     Route::post('uploadImg', [UserInfoController::class, 'uploadImg']);
+    Route::resource('blog', BlogController::class);
+    Route::post('uploadBlogImgs', [BlogImgsController::class, 'uploadBlogImgs']);
+    // Route::post('blog/{user_id}/upload', 'API\BlogImgsController@uploadBlogImgs');
+
 });
