@@ -1,20 +1,22 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+// import { useDispatch, useSelector } from 'react-redux'
+// import { addBlogInfo } from '../../../../store/slices/blogSlice'
 import InputById from '../../../../components/inputs/InputById'
 import { ImgsUpload } from '../../../../components/inputs/ImgsUpload'
 import SubmitBtn from '../../../../components/inputs/SubmitBtn'
+import { RiDeleteBin6Fill } from 'react-icons/ri';
 import baseApi from '../../../../apis/baseApi'
-import { API_BASE_URL, getAxiosConfig } from '../../../../apis/config'
+import { getAxiosConfig } from '../../../../apis/config'
 import { error, success } from '../../../../components/swal/swal'
+import './AddBlog.scss'
 
 const AddBlog = () => {
-    const { userInfo } = useSelector(state => state.auth)
-    console.log(userInfo?.id);
+    // const dispatch = useDispatch()
     const [images, setImages] = useState([])
     const [previewImages, setPreviewImages] = useState([])
 
     const uploadImgs = (e) => {
-        const files = Array.from(e?.target?.files)
+        const files = Array.from(e.target.files)
         const uploadedImages = files.map((file) => URL.createObjectURL(file))
 
         setImages((prevImages) => [...prevImages, ...files])
@@ -22,6 +24,11 @@ const AddBlog = () => {
     }
 
     const removeImg = (index) => {
+        setImages((prevPreviews) => {
+            const updatedPreviews = [...prevPreviews]
+            updatedPreviews.splice(index, 1)
+            return updatedPreviews
+        });
         setPreviewImages((prevPreviews) => {
             const updatedPreviews = [...prevPreviews]
             updatedPreviews.splice(index, 1)
@@ -29,55 +36,62 @@ const AddBlog = () => {
         });
     }
 
+    // const { newBlogId } = useSelector(state => state.blog)
+    // console.log(newBlogId)//
+
     const handleSubmit = (e) => {
         e.preventDefault()
 
-        const formData = new FormData();
-
-        Array.from(images).forEach((file) => {
-            formData.append('file', file);
-            formData.append('fileName', file.name);
-        });
-
-        // if (formData.entries().next().done) {
-        //     error("Upload Img")
-        //     return
-        // }
-
-        const data = {
+        const blogInfo = {
             title: e.target.blogTitle.value,
             description: e.target.blogDescription.value,
         }
 
-        baseApi.post('/api/blog', data, getAxiosConfig())
-            // baseApi.post('/api/uploadBlogImgs', formData, getAxiosConfig())
+        // dispatch(addBlogInfo({ blogInfo }))
+
+        baseApi.post('/api/blog', blogInfo, getAxiosConfig())
             .then(res => {
-                success(res.data.message)
+                const formData = new FormData();
+
+                images.forEach((file, index) => {
+                    formData.append(`file${index}`, file);
+                    formData.append('blog_id', res.data.data.id);
+                });
+
+                baseApi.post('/api/uploadBlogImgs', formData, getAxiosConfig())
+                    .then(res => {
+                        success(res.data.message)
+                    })
+                    .catch(err => {
+                        error(err.response.data.message)
+                    })
             })
             .catch(err => {
                 error(err.response.data.message)
             }).finally(
                 e.target.blogTitle.value = "",
                 e.target.blogDescription.value = "",
-                setImages([]),
+                setPreviewImages([]),
+                setImages([])
             )
     }
 
     return (
         <div className='addblog'>
-            <form onSubmit={handleSubmit} className='blog__upload'>
-                <p>Add new blog</p>
+            <form onSubmit={handleSubmit} className='addblog__upload'>
                 <InputById id="blogTitle" type="text" placeholder="Title" />
                 <InputById id="blogDescription" type="text" placeholder="Description" />
                 <ImgsUpload onChange={uploadImgs} />
-                {previewImages && previewImages.map((preview, index) => (
-                    <div key={index}>
-                        <img src={preview} alt="uploadedImg" />
-                        <button onClick={() => removeImg(index)}>Remove</button>
-                    </div>
-                ))}
                 <SubmitBtn text="Enter" />
             </form>
+            <div className='addblog__imgs'>
+                {previewImages && previewImages.map((preview, index) => (
+                    <div key={index} className='addblog__imgs-card'>
+                        <img src={preview} alt="uploadedImg" />
+                        <button type='button' onClick={() => removeImg(index)}><RiDeleteBin6Fill /></button>
+                    </div>
+                ))}
+            </div>
         </div>
     )
 }

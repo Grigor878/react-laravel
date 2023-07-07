@@ -49,11 +49,6 @@ const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
-    // logout: (state) => {
-    // state.isLoggedIn = false;
-    // state.token = null;
-    // localStorage.removeItem("token");
-    // },
     setUserImg: (state, action) => {
       state.userImg = action.payload;
     },
@@ -93,11 +88,12 @@ const authSlice = createSlice({
         localStorage.setItem("token", action.payload.data.access_token);
         success("Welcome");
       })
-      .addCase(logout.fulfilled, (state, action) => {
+      .addCase(logout.fulfilled, (state) => {
         state.isLoggedIn = false;
         state.token = null;
         state.userImg = null;
         localStorage.removeItem("token");
+        sessionStorage.removeItem("blogPage");
         // console.log(action.payload.message); //
       });
   },

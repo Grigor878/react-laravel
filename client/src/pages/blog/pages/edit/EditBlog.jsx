@@ -1,15 +1,15 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom'
 
-const CustomEdit = () => {
+const EditBlog = () => {
     const navigate = useNavigate()
 
     return (
         <div>
-            Welcome
-            <button onClick={() => navigate(-1)}>Go Back</button>
+            <button onClick={() => navigate(-1)}>Go back</button>
+            <h1>Blog edit page</h1>
         </div>
     )
 }
 
-export default CustomEdit
+export default EditBlog

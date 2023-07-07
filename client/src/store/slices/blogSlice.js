@@ -7,6 +7,10 @@ const initialState = {
   getLoading: false,
   getError: null,
   getInfo: null,
+  viewLoading: false,
+  viewError: null,
+  viewInfo: null,
+  // newBlogId: null,
 };
 
 export const getBlogInfo = createAsyncThunk("blog", async () => {
@@ -18,29 +22,93 @@ export const getBlogInfo = createAsyncThunk("blog", async () => {
   }
 });
 
+// export const addBlogInfo = createAsyncThunk(
+//   "blog/add",
+//   async ({ blogInfo }) => {
+//     try {
+//       const { data } = await baseApi.post(
+//         "/api/blog",
+//         blogInfo,
+//         getAxiosConfig()
+//       );
+//       // console.log(data.data.id);
+//       return data;
+//     } catch (err) {
+//       console.log(`Add Blog Info Error: ${err.message}`);
+//       throw err;
+//     }
+//   }
+// );
+
+export const viewBlogInfo = createAsyncThunk("blog/view", async ({ id }) => {
+  try {
+    const { data } = await baseApi.get(`api/blog/${id}`, getAxiosConfig());
+    return data;
+  } catch (err) {
+    console.log(`View Blog Info Error: ${err.message}`);
+    throw err;
+  }
+});
+
+export const deleteBlogInfo = createAsyncThunk(
+  "blog/delete",
+  async ({ id }) => {
+    try {
+      const { data } = await baseApi.delete(`api/blog/${id}`, getAxiosConfig());
+      return data;
+    } catch (err) {
+      console.log(`Delete Blog Info Error: ${err.message}`);
+      throw err;
+    }
+  }
+);
+
 const blogSlice = createSlice({
   name: "blog",
   initialState,
-  reducers: {},
+  reducers: {
+    // setNewBlogId: (state, action) => {
+    //   state.newBlogId = action.payload;
+    // },
+  },
   extraReducers: (builder) => {
     builder
+      // get
       .addCase(getBlogInfo.pending, (state) => {
         state.getLoading = true;
       })
       .addCase(getBlogInfo.rejected, (state, action) => {
-        state.registerLoading = false;
         error(`Error: ${action.error.message}`);
       })
       .addCase(getBlogInfo.fulfilled, (state, action) => {
         state.getLoading = false;
         state.getInfo = action.payload;
-        // success(action.payload.message);
-        // if (action.payload.status === true) {
-        //   setTimeout(() => {
-        //     window.location.replace(`${APP_BASE_URL}/login`);
-        //   }, 1000);
-        // }
+      })
+      // view
+      .addCase(viewBlogInfo.pending, (state) => {
+        state.viewLoading = true;
+      })
+      .addCase(viewBlogInfo.rejected, (state, action) => {
+        error(`Error: ${action.error.message}`);
+      })
+      .addCase(viewBlogInfo.fulfilled, (state, action) => {
+        state.viewLoading = false;
+        state.viewInfo = action.payload;
+      })
+      // delete
+      .addCase(deleteBlogInfo.fulfilled, (state, action) => {
+        success(action.payload.message);
+        setTimeout(() => {
+          window.location.reload(false);
+          // window.location = `${APP_BASE_URL}/blog`;
+        }, 1000);
       });
+    // .addCase(addBlogInfo.fulfilled, (state, action) => {
+    //   // console.log(action);
+    //   // console.log(action.payload.data.id);
+    //   // state.newBlogId = action.payload.data.id;
+    //   // console.log(action);
+    // });
   },
 });
 

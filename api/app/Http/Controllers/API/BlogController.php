@@ -21,7 +21,7 @@ class BlogController extends Controller
         // dd($request->all());
         $user = Auth::user();
 
-        $blogs = Blog::where('user_id', $user->id)->get();
+        $blogs = Blog::where('user_id', $user->id)->with('images')->get();
 
         return response()->json([
             'data' => $blogs,
@@ -32,38 +32,23 @@ class BlogController extends Controller
         // ], 200);
     }
 
+    // public function show($id)
+
+    // }
+
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'title' => 'required',
-    //         'description' => 'required',
-    //         'imgs' => 'required',
-    //     ]);
-
-    //     $validatedData['user_id'] = Auth::id();
-
-    //     $blog = Blog::create($validatedData);
-
-    //     return response()->json([
-    //         'data' => $blog,
-    //         'message' => 'Blog created successfully',
-    //     ], 201);
-    // }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            // 'imgs' => 'required',
-            'imgs' => '',
-        ]);
 
+        ]);
 
         $validatedData['user_id'] = Auth::id();
 
@@ -72,7 +57,7 @@ class BlogController extends Controller
             if ($blog) {
                 return response()->json([
                     'data' => $blog,
-                    'message' => 'Blog created successfully',
+                    // 'message' => 'Blog created successfully', //
                 ], 201);
             } else {
                 return response()->json([
@@ -95,10 +80,15 @@ class BlogController extends Controller
      */
     public function show($id)
     {
-        $blog = Blog::findOrFail($id);
+        // old logic
+        // $blog = Blog::findOrFail($id);
+
+        // new logic
+        $user = Auth::user();
+        $blogs = Blog::where('user_id', $user->id)->with('images')->get();
 
         return response()->json([
-            'data' => $blog,
+            'data' => $blogs,
         ]);
     }
 
@@ -141,4 +131,20 @@ class BlogController extends Controller
             'message' => 'Blog deleted successfully',
         ]);
     }
+    // public function destroy($id)
+    // {
+    //     $user = Auth::user();
+    //     $blog = Blog::findOrFail($id);
+
+    //     $imagePath = public_path('images') . $user->image; 
+    //     if (file_exists($imagePath)) {
+    //         unlink($imagePath);
+    //     }
+
+    //     $blog->delete();
+
+    //     return response()->json([
+    //         'message' => 'Blog deleted successfully',
+    //     ]);
+    // }
 }

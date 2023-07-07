@@ -14,7 +14,6 @@ class UserInfoController extends Controller
             $request->file->move(public_path('images'), $request->file->getClientOriginalName());
         }
         $user = Auth::user();
-        // dd($request->file);
         $user->photo = $request->file->getClientOriginalName();
 
         

@@ -21,6 +21,8 @@
 }
 
 .imgUpload {
+  @include flex;
+  gap: 7px;
   cursor: pointer;
 
   input {

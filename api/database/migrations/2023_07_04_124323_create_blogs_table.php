@@ -19,7 +19,7 @@ class CreateBlogsTable extends Migration
             $table->unsignedBigInteger('user_id')->default(0);
             $table->string('title');
             $table->string('description');
-            $table->string('imgs')->nullable();
+            // $table->string('imgs')->nullable();
             $table->timestamps();
         });
     }

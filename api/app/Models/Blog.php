@@ -15,7 +15,7 @@ class Blog extends Model
         'user_id',
         'title',
         'description',
-        'imgs'
+        // 'imgs'
     ];
 
     public function user()
@@ -25,7 +25,7 @@ class Blog extends Model
 
     public function images()
     {
-        return $this->hasMany(BlogImage::class);
+        return $this->hasOne(BlogImage::class); //hasMany
     }
 
     // public function user()

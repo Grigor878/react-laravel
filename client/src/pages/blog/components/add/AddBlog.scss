@@ -1,1 +1,36 @@
-@import '../../../../variables';
+@import "../../../../variables";
+
+.addblog {
+  @include flexColCenter;
+  gap: 50px;
+  background: $bgAdmin;
+  padding: 50px;
+  border-top: 1px solid $border;
+
+  &__upload {
+    @include flexCol;
+    gap: 22px;
+  }
+
+  &__imgs {
+    @include flex;
+    gap: 33px;
+
+    &-card {
+      position: relative;
+
+      img {
+        width: 303px;
+        height: 303px;
+      }
+
+      button {
+        position: absolute;
+        top: -11px;
+        right: -11px;
+        font-size: 25px;
+        background: transparent;
+      }
+    }
+  }
+}

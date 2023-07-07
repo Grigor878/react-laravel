@@ -17,8 +17,6 @@ const Profile = () => {
   const [uploaded, setUploaded] = useState([])
   const [avatarUrl, setAvatarUrl] = useState([])
 
-  console.log(uploaded)//
-
   const uploadImage = (e) => {
     setUploaded(e.target.files[0])
 
@@ -42,8 +40,6 @@ const Profile = () => {
     const formData = new FormData()
     formData.append('file', uploaded)
     formData.append('fileName', uploaded?.name)
-
-    
 
     baseApi.post('/api/uploadImg', formData, getAxiosConfig())
       .then((res) => {
