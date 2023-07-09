@@ -23,6 +23,8 @@ const AddBlog = () => {
         setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
     }
 
+    console.log(images);
+
     const removeImg = (index) => {
         setImages((prevPreviews) => {
             const updatedPreviews = [...prevPreviews]
@@ -45,6 +47,7 @@ const AddBlog = () => {
         const blogInfo = {
             title: e.target.blogTitle.value,
             description: e.target.blogDescription.value,
+            // imgs: namesString ? namesString : "",
         }
 
         // dispatch(addBlogInfo({ blogInfo }))
