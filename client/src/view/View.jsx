@@ -8,7 +8,7 @@ import Layout from '../components/layout/Layout'
 
 const Profile = lazy(() => import('../pages/profile/Profile'))
 const Blog = lazy(() => import('../pages/blog/Blog'))
-const BlogView = lazy(() => import('../pages/blog/pages/view/BlogView'))
+const ViewBlog = lazy(() => import('../pages/blog/pages/view/ViewBlog'))
 const EditBlog = lazy(() => import('../pages/blog/pages/edit/EditBlog'))
 
 const View = () => {
@@ -21,7 +21,7 @@ const View = () => {
                     <Route path="/" element={isLoggedIn && token ? <Layout /> : <Navigate to="/login" />}>
                         <Route index path="/profile" element={<Profile />} />
                         <Route path="/blog" element={<Blog />} />
-                        <Route path="/blog/view/:id" element={<BlogView />} />
+                        <Route path="/blog/view/:id" element={<ViewBlog />} />
                         <Route path="/blog/edit/:id" element={<EditBlog />} />
                         <Route path="*" element={<NotFound />} />
                     </Route>

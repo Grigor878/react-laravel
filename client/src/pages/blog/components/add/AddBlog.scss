@@ -4,7 +4,7 @@
   @include flexColCenter;
   gap: 50px;
   background: $bgAdmin;
-  padding: 50px;
+  padding: 50px 0;
   border-top: 1px solid $border;
 
   &__upload {

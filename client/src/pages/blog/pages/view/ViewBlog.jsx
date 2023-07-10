@@ -2,8 +2,10 @@ import React, { useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { viewBlogInfo } from '../../../../store/slices/blogSlice'
 import { useNavigate, useParams } from 'react-router-dom'
+import Button from '../../../../components/inputs/Button'
+import './ViewBlog.scss'
 
-const BlogView = () => {
+const ViewBlog = () => {
     const dispatch = useDispatch()
     const { id } = useParams()
 
@@ -12,15 +14,22 @@ const BlogView = () => {
     }, [dispatch, id])
 
     const { viewInfo } = useSelector(state => state.blog)
-    console.log(viewInfo)//
     const navigate = useNavigate()
+    
+    const data = viewInfo?.data
+    console.log(data)//
 
     return (
-        <div>
-            <button onClick={() => navigate(-1)}>Go back</button>
-            <h1>Blog view page</h1>
+        <div className='viewBlog'>
+            <div className="container">
+                <Button
+                    text="Go Back"
+                    onClick={() => navigate(-1)}
+                />
+
+            </div>
         </div>
     )
 }
 
-export default BlogView
+export default ViewBlog

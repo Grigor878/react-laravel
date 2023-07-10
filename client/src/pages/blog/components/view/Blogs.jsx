@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { deleteBlogInfo, getBlogInfo } from '../../../../store/slices/blogSlice'
 import moment from 'moment'
-import './Blogs.scss'
 import { API_BASE_URL } from '../../../../apis/config'
+import './Blogs.scss'
 
 const Blogs = () => {
     const dispatch = useDispatch()
@@ -48,7 +48,7 @@ const Blogs = () => {
                                     </button>
                                 </div>
                                 <div className='bloginfo__card-imgs'>
-                                    {JSON.parse(images.name).slice(0, 1).map((el) => {
+                                    {JSON.parse(images?.name).slice(0, 1).map((el) => {
                                         return (
                                             <img key={el} src={API_BASE_URL + `/images/` + el} alt="img" />
                                         )

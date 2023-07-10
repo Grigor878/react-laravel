@@ -92,7 +92,7 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.token = null;
         state.userImg = null;
-        localStorage.removeItem("token");
+        // localStorage.removeItem("token");
         sessionStorage.removeItem("blogPage");
         // console.log(action.payload.message); //
       });

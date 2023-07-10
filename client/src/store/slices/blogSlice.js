@@ -5,12 +5,8 @@ import { APP_BASE_URL, getAxiosConfig } from "../../apis/config";
 
 const initialState = {
   getLoading: false,
-  getError: null,
   getInfo: null,
-  viewLoading: false,
-  viewError: null,
   viewInfo: null,
-  // newBlogId: null,
 };
 
 export const getBlogInfo = createAsyncThunk("blog", async () => {
@@ -49,6 +45,23 @@ export const viewBlogInfo = createAsyncThunk("blog/view", async ({ id }) => {
     throw err;
   }
 });
+
+export const editBlogInfo = createAsyncThunk(
+  "blog/edit",
+  async ({ id, edited }) => {
+    try {
+      const { data } = await baseApi.put(
+        `api/blog/${id}`,
+        edited,
+        getAxiosConfig()
+      );
+      return data;
+    } catch (err) {
+      console.log(`Edit Blog Info Error: ${err.message}`);
+      throw err;
+    }
+  }
+);
 
 export const deleteBlogInfo = createAsyncThunk(
   "blog/delete",
@@ -94,6 +107,13 @@ const blogSlice = createSlice({
       .addCase(viewBlogInfo.fulfilled, (state, action) => {
         state.viewLoading = false;
         state.viewInfo = action.payload;
+      })
+      // edit
+      .addCase(editBlogInfo.rejected, (state, action) => {
+        error(`Error: ${action.error.message}`);
+      })
+      .addCase(editBlogInfo.fulfilled, (state, action) => {
+        success(action.payload.message);
       })
       // delete
       .addCase(deleteBlogInfo.fulfilled, (state, action) => {

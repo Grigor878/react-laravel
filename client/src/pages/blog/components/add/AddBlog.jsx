@@ -49,6 +49,10 @@ const AddBlog = () => {
 
         // dispatch(addBlogInfo({ blogInfo }))
 
+        if (images.length === 0) {
+            return error("Upload Imgs!")
+        }
+
         baseApi.post('/api/blog', blogInfo, getAxiosConfig())
             .then(res => {
                 const formData = new FormData();
@@ -88,7 +92,11 @@ const AddBlog = () => {
                 {previewImages && previewImages.map((preview, index) => (
                     <div key={index} className='addblog__imgs-card'>
                         <img src={preview} alt="uploadedImg" />
-                        <button type='button' onClick={() => removeImg(index)}><RiDeleteBin6Fill /></button>
+                        <button
+                            type='button'
+                            onClick={() => removeImg(index)}
+                        ><RiDeleteBin6Fill />
+                        </button>
                     </div>
                 ))}
             </div>

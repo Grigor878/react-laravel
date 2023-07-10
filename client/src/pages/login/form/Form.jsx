@@ -21,7 +21,7 @@ const Form = () => {
     }
 
     return (
-        <form onSubmit={handleLogin} className='login-form'>
+        <form onSubmit={handleLogin} className='login-form' autoComplete="on">
             <InputById
                 id="loginEmail"
                 type="email"
