@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import './Profile.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { ImgUpload } from '../../components/inputs/ImgUpload'
-import { setUserImg } from '../../store/slices/authSlice'
+import { deleteUserImg, setUserImg } from '../../store/slices/authSlice'
 import baseApi from '../../apis/baseApi'
 import { API_BASE_URL, getAxiosConfig } from '../../apis/config'
 import { error, success } from '../../components/swal/swal'
@@ -10,6 +10,8 @@ import moment from 'moment'
 
 const Profile = () => {
   const { userInfo, userImg } = useSelector(state => state.auth)
+  // const id = userInfo?.id
+  // console.log(id)//
   const dispatch = useDispatch()
 
   // const [avatar, setAvatar] = useState(userImg?.img === userInfo?.photo ? userImg?.img : userInfo?.photo)
@@ -32,6 +34,7 @@ const Profile = () => {
     setAvatar()
     setAvatarUrl([])
     setUploaded([])
+    // dispatch(deleteUserImg())
   }
 
   const handleSubmit = (e) => {

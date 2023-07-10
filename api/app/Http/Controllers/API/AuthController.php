@@ -129,15 +129,22 @@ class AuthController extends Controller
     //     ]);
     // }
 
+    public function AauthAcessToken()
+    {
+        return $this->hasMany('\App\OauthAccessToken');
+    }
+
     public function logout()
     {
-        dd(Auth::user());
-        Auth::user()->token()->revoke();
+        // dd($request->all());
+        // dd(Auth::user());
+        // Auth::user()->token()->revoke();
 
-        return response()->json([
-            'message' => "Unauthenticated 848484"
-        ], 401);
+        // return response()->json([
+        //     'message' => "Unauthenticated 848484"
+        // ], 401);
+        if (Auth::check()) {
+            Auth::user()->AauthAcessToken()->delete();
+        }
     }
 }
-
-

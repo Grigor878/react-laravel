@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-// import { useDispatch, useSelector } from 'react-redux'
-// import { addBlogInfo } from '../../../../store/slices/blogSlice'
 import InputById from '../../../../components/inputs/InputById'
 import { ImgsUpload } from '../../../../components/inputs/ImgsUpload'
 import SubmitBtn from '../../../../components/inputs/SubmitBtn'
@@ -11,7 +9,6 @@ import { error, success } from '../../../../components/swal/swal'
 import './AddBlog.scss'
 
 const AddBlog = () => {
-    // const dispatch = useDispatch()
     const [images, setImages] = useState([])
     const [previewImages, setPreviewImages] = useState([])
 
@@ -22,8 +19,6 @@ const AddBlog = () => {
         setImages((prevImages) => [...prevImages, ...files])
         setPreviewImages((prevPreviews) => [...prevPreviews, ...uploadedImages])
     }
-
-    console.log(images);
 
     const removeImg = (index) => {
         setImages((prevPreviews) => {
@@ -38,19 +33,13 @@ const AddBlog = () => {
         });
     }
 
-    // const { newBlogId } = useSelector(state => state.blog)
-    // console.log(newBlogId)//
-
     const handleSubmit = (e) => {
         e.preventDefault()
 
         const blogInfo = {
             title: e.target.blogTitle.value,
             description: e.target.blogDescription.value,
-            // imgs: namesString ? namesString : "",
         }
-
-        // dispatch(addBlogInfo({ blogInfo }))
 
         if (images.length === 0) {
             return error("Upload Imgs!")
@@ -91,17 +80,19 @@ const AddBlog = () => {
                 <ImgsUpload onChange={uploadImgs} />
                 <SubmitBtn text="Enter" />
             </form>
-            <div className='addblog__imgs'>
-                {previewImages && previewImages.map((preview, index) => (
-                    <div key={index} className='addblog__imgs-card'>
-                        <img src={preview} alt="uploadedImg" />
-                        <button
-                            type='button'
-                            onClick={() => removeImg(index)}
-                        ><RiDeleteBin6Fill />
-                        </button>
-                    </div>
-                ))}
+            <div className="container">
+                <div className='addblog__imgs'>
+                    {previewImages && previewImages.map((preview, index) => (
+                        <div key={index} className='addblog__imgs-card'>
+                            <img src={preview} alt="uploadedImg" />
+                            <button
+                                type='button'
+                                onClick={() => removeImg(index)}
+                            ><RiDeleteBin6Fill />
+                            </button>
+                        </div>
+                    ))}
+                </div>
             </div>
         </div>
     )

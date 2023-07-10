@@ -13,7 +13,8 @@
   }
 
   &__imgs {
-    @include flex;
+    @include flexCenter;
+    flex-wrap: wrap;
     gap: 33px;
 
     &-card {

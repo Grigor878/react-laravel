@@ -18,24 +18,6 @@ export const getBlogInfo = createAsyncThunk("blog", async () => {
   }
 });
 
-// export const addBlogInfo = createAsyncThunk(
-//   "blog/add",
-//   async ({ blogInfo }) => {
-//     try {
-//       const { data } = await baseApi.post(
-//         "/api/blog",
-//         blogInfo,
-//         getAxiosConfig()
-//       );
-//       // console.log(data.data.id);
-//       return data;
-//     } catch (err) {
-//       console.log(`Add Blog Info Error: ${err.message}`);
-//       throw err;
-//     }
-//   }
-// );
-
 export const viewBlogInfo = createAsyncThunk("blog/view", async ({ id }) => {
   try {
     const { data } = await baseApi.get(`api/blog/${id}`, getAxiosConfig());
@@ -114,21 +96,21 @@ const blogSlice = createSlice({
       })
       .addCase(editBlogInfo.fulfilled, (state, action) => {
         success(action.payload.message);
+        if (action.payload.status === true) {
+          setTimeout(() => {
+            window.location.replace(`${APP_BASE_URL}/blog`);
+          }, 1000);
+        }
       })
       // delete
       .addCase(deleteBlogInfo.fulfilled, (state, action) => {
         success(action.payload.message);
-        setTimeout(() => {
-          window.location.reload(false);
-          // window.location = `${APP_BASE_URL}/blog`;
-        }, 1000);
+        if (action.payload.status === true) {
+          setTimeout(() => {
+            window.location.reload(false);
+          }, 1000);
+        }
       });
-    // .addCase(addBlogInfo.fulfilled, (state, action) => {
-    //   // console.log(action);
-    //   // console.log(action.payload.data.id);
-    //   // state.newBlogId = action.payload.data.id;
-    //   // console.log(action);
-    // });
   },
 });
 

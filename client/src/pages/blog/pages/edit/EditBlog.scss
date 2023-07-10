@@ -1,10 +1,10 @@
 @import "../../../../variables";
 
 .editBlog {
+  background: $bgAdmin;
   padding: 50px 0;
 
-  &__context {
-  }
+  &__context {}
 
   &__header {
     @include flex;
@@ -20,8 +20,7 @@
     gap: 33px;
     padding-top: 50px;
 
-    &-imgs {
-    }
+    &-imgs {}
 
     &-inputs {
       @include flexCol;
@@ -39,6 +38,7 @@
         }
       }
     }
+
     &-dates {
       @include flex;
       gap: 11px;

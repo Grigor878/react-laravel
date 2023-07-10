@@ -45,6 +45,15 @@ export const logout = createAsyncThunk("/auth/logout", async () => {
   }
 });
 
+export const deleteUserImg = createAsyncThunk("/auth/deleteImg", async () => {
+  try {
+    const { data } = await baseApi.post("/api/deleteImg", getAxiosConfig());
+    return data;
+  } catch (err) {
+    console.log(`User Img Remove Error: ${err.message}`);
+  }
+});
+
 const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -92,10 +101,13 @@ const authSlice = createSlice({
         state.isLoggedIn = false;
         state.token = null;
         state.userImg = null;
-        // localStorage.removeItem("token");
+        localStorage.removeItem("token");
         sessionStorage.removeItem("blogPage");
         // console.log(action.payload.message); //
-      });
+      })
+    // .addCase(deleteUserImg.fulfilled, (state, action) => {
+    //   console.log(action.payload);
+    // });
   },
 });
 

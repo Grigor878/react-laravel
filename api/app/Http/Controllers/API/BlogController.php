@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Blog;
+use App\Models\BlogImage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Database\QueryException;
 
@@ -78,14 +79,27 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+    // public function show($id)
+    // {
+    //     // old logic
+    //     // $blog = Blog::findOrFail($id);
+
+    //     // new logic
+    //     $user = Auth::user();
+    //     $blogs = Blog::where('user_id', $user->id)->with('images')->get();
+
+    //     return response()->json([
+    //         'data' => $blogs,
+    //     ]);
+    // }
+
     public function show($id)
     {
-        // old logic
-        // $blog = Blog::findOrFail($id);
-
-        // new logic
         $user = Auth::user();
-        $blogs = Blog::where('user_id', $user->id)->with('images')->get();
+        $blogs = Blog::where('user_id', $user->id)
+            ->where('id', $id)
+            ->with('images')
+            ->get();
 
         return response()->json([
             'data' => $blogs,
@@ -104,16 +118,16 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            // 'imgs' => 'required',
         ]);
 
         $blog = Blog::findOrFail($id);
         $blog->update($validatedData);
 
         return response()->json([
-            'data' => $blog,
+            // 'data' => $blog,
             'message' => 'Blog updated successfully',
-        ]);
+            'status' => true
+        ], 200);
     }
 
     /**
@@ -125,26 +139,24 @@ class BlogController extends Controller
     public function destroy($id)
     {
         $blog = Blog::findOrFail($id);
+        $blogImgData = BlogImage::findOrFail($id);
+
+        $blogImgNames = json_decode($blogImgData->name, true);
+
+        foreach ($blogImgNames as $blogImgName) {
+            $imagePath = public_path('images/') . $blogImgName;
+
+            if (file_exists($imagePath)) {
+                unlink($imagePath);
+            }
+        }
+
         $blog->delete();
+        $blogImgData->delete();
 
         return response()->json([
             'message' => 'Blog deleted successfully',
-        ]);
+            'status' => true
+        ], 200);
     }
-    // public function destroy($id)
-    // {
-    //     $user = Auth::user();
-    //     $blog = Blog::findOrFail($id);
-
-    //     $imagePath = public_path('images') . $user->image; 
-    //     if (file_exists($imagePath)) {
-    //         unlink($imagePath);
-    //     }
-
-    //     $blog->delete();
-
-    //     return response()->json([
-    //         'message' => 'Blog deleted successfully',
-    //     ]);
-    // }
 }
