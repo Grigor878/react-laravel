@@ -85,7 +85,7 @@ class AuthController extends Controller
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
                 $accessToken = $user->createToken('API TOKEN')->accessToken;
-                
+
                 return response()->json([
                     'status' => true,
                     'data' => [
@@ -111,30 +111,31 @@ class AuthController extends Controller
 
     // public function logout(Request $request)
     // {
-    //     dd($request->user()->currentAccessToken());
-    //     $request->user()->currentAccessToken()->delete();
-    //     return response(['message' => 'Successfully Logging out']);
-    // }
-
-    // public function logout(Request $request)
-    // {
-    //     // $accessToken = auth()->user()->token();
-    //     $accessToken = $request->user()->currentAccessToken()->delete();
-    //     $token = $request->user()->tokens->find($accessToken);
-    //     $token->revoke();
+    //     // dd($request->all());
+    //     $request->user()->Authorization()->delete();
 
     //     return response([
     //         'message' => 'You have been successfully logged out.',
     //     ], 200);
     // }
 
-    public function logout(Request $request)
-    {
-        // dd($request->all());
-        $request->user()->Authorization()->delete();
+    // public function logout()
+    // {
+    //     dd("2");
+    //     Auth::user()->token()->revoke();
 
-        return response([
-            'message' => 'You have been successfully logged out.',
-        ], 200);
+    //     return response()->json([
+    //         'message' => "User Logout Success"
+    //     ]);
+    // }
+
+    public function logout()
+    {
+        dd(Auth::user());
+        Auth::user()->token()->revoke();
+
+        return response()->json([
+            'message' => "Unauthenticated 848484"
+        ], 401);
     }
 }
