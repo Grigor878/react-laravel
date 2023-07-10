@@ -104,7 +104,7 @@ class BlogController extends Controller
         $validatedData = $request->validate([
             'title' => 'required',
             'description' => 'required',
-            'imgs' => 'required',
+            // 'imgs' => 'required',
         ]);
 
         $blog = Blog::findOrFail($id);
