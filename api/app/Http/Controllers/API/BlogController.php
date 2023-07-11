@@ -17,21 +17,36 @@ class BlogController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function index(Request $request)
+    // custom get without pagination
+    // public function index(Request $request)
+    // {
+    //     // dd($request->all());
+    //     $user = Auth::user();
+
+    //     $blogs = Blog::where('user_id', $user->id)->with('images')->get();
+
+    //     return response()->json([
+    //         'data' => $blogs,
+    //         'message' => 'Blogs retrieved successfully',
+    //     ], 200);
+    //     // return response()->json([
+    //     //     $blogs,
+    //     // ], 200);
+    // }
+
+    // with pagination
+    public function index()
     {
-        // dd($request->all());
         $user = Auth::user();
 
-        $blogs = Blog::where('user_id', $user->id)->with('images')->get();
+        $blogs = Blog::where('user_id', $user->id)->with('images')->paginate(4);
 
         return response()->json([
             'data' => $blogs,
             'message' => 'Blogs retrieved successfully',
         ], 200);
-        // return response()->json([
-        //     $blogs,
-        // ], 200);
     }
+
 
     // public function show($id)
 

@@ -8,7 +8,18 @@
   border-top: 1px solid $border;
   gap: 33px;
 
+  &__top {
+    @include flexCenter;
+    width: 100%;
+    padding-bottom: 17px;
+
+    h3 {
+      font-size: 33px;
+    }
+  }
+
   p {
+    text-align: justify;
     font-size: 22px;
   }
 
@@ -19,6 +30,7 @@
     @include flexCol;
     gap: 11px;
     position: relative;
+    width: 424px;
 
     &-redirects {
       position: absolute;
@@ -41,9 +53,11 @@
       &-view {
         background: $blue;
       }
+
       &-edit {
         background: $green;
       }
+
       &-delete {
         background: $red;
       }
@@ -65,11 +79,20 @@
 
   &__content {
     @include flexCol;
-    gap: 11px;
+    gap: 22px;
 
-    h4 {
-      color: $blue;
-      font-size: 22px;
+    &-top {
+      @include flex;
+      justify-content: space-between;
+
+      h4 {
+        color: $blue;
+        font-size: 22px;
+      }
+
+      span {
+        color: $textSmall;
+      }
     }
 
     p {
@@ -86,5 +109,11 @@
         color: $textSub;
       }
     }
+  }
+
+  &__pagination {
+    @include flexCenter;
+    gap: 33px;
+    width: 100%;
   }
 }

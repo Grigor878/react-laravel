@@ -32,7 +32,7 @@ const Header = () => {
                         })
                         }
                     </ul>
-                    <Button text="Log-Out" onClick={() => dispatch(logout())} />
+                    <Button color="red" text="Log-Out" onClick={() => dispatch(logout())} />
                 </nav>
             </div>
         </header>

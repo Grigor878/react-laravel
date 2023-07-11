@@ -1,6 +1,7 @@
 import React, { Suspense, lazy } from 'react'
 import { useSelector } from "react-redux"
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom"
+import { Loader } from '../components/loader/Loader'
 import Login from '../pages/login/Login'
 import NotFound from '../pages/notFound/NotFound'
 import Register from '../pages/register/Register'
@@ -16,7 +17,7 @@ const View = () => {
 
     return (
         <Router>
-            <Suspense fallback={<p>Loading...</p>}>
+            <Suspense fallback={<Loader />}>
                 <Routes>
                     <Route path="/" element={isLoggedIn && token ? <Layout /> : <Navigate to="/login" />}>
                         <Route index path="/profile" element={<Profile />} />

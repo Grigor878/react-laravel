@@ -9,9 +9,9 @@ const initialState = {
   viewInfo: null,
 };
 
-export const getBlogInfo = createAsyncThunk("blog", async () => {
+export const getBlogInfo = createAsyncThunk("blog", async ({ page }) => {
   try {
-    const { data } = await baseApi.get("/api/blog", getAxiosConfig());
+    const { data } = await baseApi.get(`/api/blog?page=${page}`, getAxiosConfig());
     return data;
   } catch (err) {
     console.log(`Get Blog Info Error: ${err.message}`);

@@ -5,6 +5,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 import Button from '../../../../components/inputs/Button'
 import moment from 'moment'
 import './EditBlog.scss'
+import { Loader } from '../../../../components/loader/Loader'
 
 const EditBlog = () => {
     const dispatch = useDispatch()
@@ -19,7 +20,6 @@ const EditBlog = () => {
     const navigate = useNavigate()
 
     const data = viewInfo?.data[0]
-    // console.log(data)//
 
     const [title, setTitle] = useState()
     const [description, setDescription] = useState()
@@ -40,10 +40,10 @@ const EditBlog = () => {
 
     return (
         !data
-            ? <p>Loading...</p>
+            ? <Loader />
             : <div className='editBlog'>
                 <div className="container">
-                    <div className='editBlog__context'>
+                    <div>
                         <div className='editBlog__header'>
                             <Button
                                 text="Go Back"
@@ -84,7 +84,7 @@ const EditBlog = () => {
                             </div>
 
                             <div className="editBlog__main-dates">
-                                <span>Added - {moment(data.created_at).fromNow()}</span>
+                                <span>Created - {moment(data.created_at).fromNow()}</span>
                                 <span>Updated - {moment(data.updated_at).fromNow()}</span>
                             </div>
                         </div>

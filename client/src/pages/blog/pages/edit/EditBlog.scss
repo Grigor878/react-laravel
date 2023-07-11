@@ -4,8 +4,6 @@
   background: $bgAdmin;
   padding: 50px 0;
 
-  &__context {}
-
   &__header {
     @include flex;
     justify-content: space-between;
@@ -40,7 +38,7 @@
     }
 
     &-dates {
-      @include flex;
+      @include flexColCenter;
       gap: 11px;
 
       span {

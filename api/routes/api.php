@@ -25,15 +25,12 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-// Route::controller(BlogController::class)->group(function () {
-//     Route::post('blog', [BlogController::class, 'index']);
-// });
-
 
 Route::middleware(['auth:api'])->group(function () {
     Route::post('uploadImg', [UserInfoController::class, 'uploadImg']);
     Route::post('deleteImg', [UserInfoController::class, 'deleteImg']);
     Route::resource('blog', BlogController::class);
+    // Route::apiResource('blog', BlogController::class);
     Route::post('uploadBlogImgs', [BlogImgsController::class, 'uploadBlogImgs']);
     // Route::post('blog/{user_id}/upload', 'API\BlogImgsController@uploadBlogImgs');
 });

@@ -1,6 +1,57 @@
 @import "../../../../variables";
 
-.viewBlog{
+.viewBlog {
     padding: 50px 0;
     background: $bgAdmin;
+
+    &__header {
+        @include flex;
+        justify-content: space-between;
+
+        p {
+            color: $textSub;
+        }
+    }
+
+    &__main {
+        @include flexColCenter;
+        gap: 55px;
+        // justify-content: space-between;
+        padding: 50px 0;
+
+        &-context {
+            @include flexColCenter;
+            gap: 25px;
+
+            h2 {
+                font-size: 33px;
+            }
+
+            p {
+                font-size: 18px;
+                color: $textSmall
+            }
+        }
+
+        &-imgs {
+            @include flexCenter;
+            gap: 55px;
+            flex-wrap: wrap;
+
+            img {
+                width: 373px;
+                height: 400px
+            }
+        }
+    }
+
+    &__dates {
+        @include flex;
+        justify-content: space-between;
+
+        span {
+            font-size: 14px;
+            color: $textSub;
+        }
+    }
 }

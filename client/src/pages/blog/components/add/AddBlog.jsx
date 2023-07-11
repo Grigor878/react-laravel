@@ -4,7 +4,7 @@ import { ImgsUpload } from '../../../../components/inputs/ImgsUpload'
 import SubmitBtn from '../../../../components/inputs/SubmitBtn'
 import { RiDeleteBin6Fill } from 'react-icons/ri';
 import baseApi from '../../../../apis/baseApi'
-import { getAxiosConfig } from '../../../../apis/config'
+import { APP_BASE_URL, getAxiosConfig } from '../../../../apis/config'
 import { error, success } from '../../../../components/swal/swal'
 import './AddBlog.scss'
 
