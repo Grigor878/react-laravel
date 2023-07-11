@@ -46,8 +46,7 @@ class BlogController extends Controller
             'message' => 'Blogs retrieved successfully',
         ], 200);
     }
-
-
+ 
     // public function show($id)
 
     // }

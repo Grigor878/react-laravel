@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import './Profile.scss'
 import { useSelector, useDispatch } from 'react-redux'
 import { ImgUpload } from '../../components/inputs/ImgUpload'
-import { deleteUserImg, setUserImg } from '../../store/slices/authSlice'
+import { setUserImg } from '../../store/slices/authSlice'
 import baseApi from '../../apis/baseApi'
 import { API_BASE_URL, getAxiosConfig } from '../../apis/config'
 import { error, success } from '../../components/swal/swal'
 import moment from 'moment'
+import './Profile.scss'
 
 const Profile = () => {
   const { userInfo, userImg } = useSelector(state => state.auth)
@@ -14,7 +14,6 @@ const Profile = () => {
   // console.log(id)//
   const dispatch = useDispatch()
 
-  // const [avatar, setAvatar] = useState(userImg?.img === userInfo?.photo ? userImg?.img : userInfo?.photo)
   const [avatar, setAvatar] = useState(userImg?.img ? userImg?.img : userInfo?.photo)
   const [uploaded, setUploaded] = useState([])
   const [avatarUrl, setAvatarUrl] = useState([])
@@ -22,8 +21,8 @@ const Profile = () => {
   const uploadImage = (e) => {
     setUploaded(e.target.files[0])
 
-    let selectedAvatar = e.target.files
-    let selectedArray = Array.from(selectedAvatar)
+    const selectedAvatar = e.target.files
+    const selectedArray = Array.from(selectedAvatar)
 
     setAvatarUrl(selectedArray.map((file) => {
       return URL.createObjectURL(file)

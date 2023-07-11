@@ -22,21 +22,22 @@ const Blogs = () => {
 
   const { getLoading, getInfo } = useSelector((state) => state.blog);
 
-  const data = getInfo?.data.data;
+  console.log(getInfo);
+
+  const data = getInfo?.data?.data;
   const itemsShow = getInfo?.data?.to;
   const items = getInfo?.data?.total;
   const currentPage = getInfo?.data?.current_page;
-  const lastPage = getInfo?.data.last_page;
-  console.log(getInfo?.data); //
-  // console.log(items)//
-  // console.log(lastPage)//
+  const lastPage = getInfo?.data?.last_page;
 
   return (
     <div className="bloginfo">
       <div className="bloginfo__top">
-        <h3>
-          {itemsShow}/{items}
-        </h3>
+        {itemsShow > 0 ? (
+          <h3>
+            {itemsShow}/{items}
+          </h3>
+        ) : null}
       </div>
       {getLoading && data ? (
         <Loader />

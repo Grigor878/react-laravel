@@ -18,7 +18,30 @@
     gap: 33px;
     padding-top: 50px;
 
-    &-imgs {}
+    &-imgs {
+      @include flex;
+      flex-wrap: wrap;
+      gap: 33px;
+
+      &-block {
+        position: relative;
+
+        img {
+          width: 373px;
+          height: 400px;
+        }
+
+        button {
+          position: absolute;
+          top: -10px;
+          right: -10px;
+          background: $red;
+          color: $bgSub;
+          padding: 7px;
+          border-radius: 7px;
+        }
+      }
+    }
 
     &-inputs {
       @include flexCol;
@@ -38,8 +61,10 @@
     }
 
     &-dates {
-      @include flexColCenter;
-      gap: 11px;
+      @include flex;
+      justify-content: space-between;
+      width: 100%;
+      gap: 33px;
 
       span {
         font-size: 14px;

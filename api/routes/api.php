@@ -25,7 +25,6 @@ Route::controller(AuthController::class)->group(function () {
     Route::post('logout', [AuthController::class, 'logout']);
 });
 
-
 Route::middleware(['auth:api'])->group(function () {
     Route::post('uploadImg', [UserInfoController::class, 'uploadImg']);
     Route::post('deleteImg', [UserInfoController::class, 'deleteImg']);
