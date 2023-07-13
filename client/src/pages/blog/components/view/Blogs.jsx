@@ -1,43 +1,65 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Loader } from "../../../../components/loader/Loader";
 import { useDispatch, useSelector } from "react-redux";
 import {
   deleteBlogInfo,
   getBlogInfo,
+  searchBlogInfo,
+  setSearchInfo,
 } from "../../../../store/slices/blogSlice";
-import moment from "moment";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { API_BASE_URL } from "../../../../apis/config";
-import "./Blogs.scss";
 import Button from "../../../../components/inputs/Button";
-import { Loader } from "../../../../components/loader/Loader";
+import { Pagination } from "../pagination/Pagination";
+import moment from "moment";
+import "./Blogs.scss";
 
 const Blogs = () => {
   const dispatch = useDispatch();
+  const location = useLocation();
+  const navigate = useNavigate();
 
-  const [page, setPage] = useState(1);
+  const searchParams = new URLSearchParams(location.search);
+  const currentPage = parseInt(searchParams.get("page")) || 1;
+  console.log(currentPage);
 
   useEffect(() => {
-    dispatch(getBlogInfo({ page }));
-  }, [dispatch, page]);
+    dispatch(getBlogInfo({ page: currentPage }));
+  }, [dispatch, currentPage]);
 
-  const { getLoading, getInfo } = useSelector((state) => state.blog);
+  const { getLoading, getInfo, searchInfo } = useSelector(
+    (state) => state.blog
+  );
+  const data = searchInfo === null ? getInfo?.data?.data : searchInfo?.data;
 
-  console.log(getInfo);
+  const handlePageChange = (page) => {
+    page === 1 ? searchParams.delete("page") : searchParams.set("page", page);
+    navigate(`${location.pathname}?${searchParams.toString()}`);
+  };
 
-  const data = getInfo?.data?.data;
-  const itemsShow = getInfo?.data?.to;
-  const items = getInfo?.data?.total;
-  const currentPage = getInfo?.data?.current_page;
-  const lastPage = getInfo?.data?.last_page;
+  const [search, setSearch] = useState("");
+
+  const handleSearch = () => {
+    const keyword = {
+      search: search,
+    };
+
+    if (keyword.search) {
+      dispatch(searchBlogInfo({ keyword }));
+    } else {
+      dispatch(setSearchInfo());
+    }
+  };
 
   return (
     <div className="bloginfo">
       <div className="bloginfo__top">
-        {itemsShow > 0 ? (
-          <h3>
-            {itemsShow}/{items}
-          </h3>
-        ) : null}
+        <input
+          type="text"
+          placeholder="Search by Title, Description"
+          onChange={(e) => setSearch(e.target.value)}
+        />
+        <Button text="Search" onClick={handleSearch} />
       </div>
       {getLoading && data ? (
         <Loader />
@@ -69,17 +91,18 @@ const Blogs = () => {
                   </button>
                 </div>
                 <div className="bloginfo__card-imgs">
-                  {JSON.parse(images?.name)
-                    .slice(0, 1)
-                    .map((el) => {
-                      return (
-                        <img
-                          key={el}
-                          src={API_BASE_URL + `/images/` + el}
-                          alt="img"
-                        />
-                      );
-                    })}
+                  {images &&
+                    JSON.parse(images?.name)
+                      .slice(0, 1)
+                      .map((el) => {
+                        return (
+                          <img
+                            key={el}
+                            src={API_BASE_URL + `/images/` + el}
+                            alt="img"
+                          />
+                        );
+                      })}
                 </div>
 
                 <div className="bloginfo__content">
@@ -102,14 +125,13 @@ const Blogs = () => {
         )
       )}
 
-      <div className="bloginfo__pagination">
-        {currentPage !== 1 ? (
-          <Button text="Previous" onClick={() => setPage((prev) => prev - 1)} />
-        ) : null}
-        {lastPage !== page ? (
-          <Button text="Next" onClick={() => setPage((next) => next + 1)} />
-        ) : null}
-      </div>
+      {!searchInfo && (
+        <Pagination
+          currentPage={getInfo?.data?.current_page}
+          lastPage={getInfo?.data?.last_page}
+          setPage={handlePageChange}
+        />
+      )}
     </div>
   );
 };

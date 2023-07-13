@@ -52,8 +52,8 @@ const AddBlog = () => {
 
         images.forEach((file, index) => {
           formData.append(`file${index}`, file);
-          formData.append("blog_id", res.data.data.id);
         });
+        formData.append("blog_id", res.data.data.id);
 
         baseApi
           .post("/api/uploadBlogImgs", formData, getAxiosConfig())

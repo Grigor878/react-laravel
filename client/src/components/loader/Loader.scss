@@ -1,0 +1,7 @@
+@import "../../variables";
+
+.loader {
+  @include flexCenter;
+  width: 100%;
+  height: 579px;
+}

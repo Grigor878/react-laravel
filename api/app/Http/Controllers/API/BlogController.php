@@ -60,8 +60,8 @@ class BlogController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'title' => 'required',
-            'description' => 'required',
+            'title' => 'required|string',
+            'description' => 'required|string',
 
         ]);
 
@@ -139,8 +139,8 @@ class BlogController extends Controller
 
         return response()->json([
             // 'data' => $blog,
+            'status' => true,
             'message' => 'Blog updated successfully',
-            'status' => true
         ], 200);
     }
 
@@ -169,8 +169,8 @@ class BlogController extends Controller
         $blogImgData->delete();
 
         return response()->json([
-            'message' => 'Blog deleted successfully',
-            'status' => true
+            'status' => true,
+            'message' => 'Blog deleted successfully'
         ], 200);
     }
 }

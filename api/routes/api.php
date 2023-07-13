@@ -6,7 +6,7 @@ use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\API\UserInfoController;
 use App\Http\Controllers\API\BlogController;
 use App\Http\Controllers\API\BlogImgsController;
-
+use App\Http\Controllers\API\BlogSearchController;
 
 // Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //     return $request->user();
@@ -31,5 +31,6 @@ Route::middleware(['auth:api'])->group(function () {
     Route::resource('blog', BlogController::class);
     // Route::apiResource('blog', BlogController::class);
     Route::post('uploadBlogImgs', [BlogImgsController::class, 'uploadBlogImgs']);
+    Route::post('blogSearch', [BlogSearchController::class, 'blogSearch']);
     // Route::post('blog/{user_id}/upload', 'API\BlogImgsController@uploadBlogImgs');
 });

@@ -19,7 +19,7 @@
     padding-top: 50px;
 
     &-imgs {
-      @include flex;
+      @include flexCenter;
       flex-wrap: wrap;
       gap: 33px;
 

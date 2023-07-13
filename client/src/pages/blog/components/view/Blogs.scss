@@ -10,11 +10,15 @@
 
   &__top {
     @include flexCenter;
+    gap: 22px;
     width: 100%;
     padding-bottom: 17px;
 
-    h3 {
-      font-size: 33px;
+    input {
+      padding: 11px;
+      border: 1px solid $textSmall;
+      border-radius: 4px;
+      font-size: 16px;
     }
   }
 
@@ -113,7 +117,17 @@
 
   &__pagination {
     @include flexCenter;
-    gap: 33px;
+    gap: 22px;
     width: 100%;
+
+    &-button {
+      padding: 7px;
+      border-radius: 4px;
+      color: $bgSub;
+      background: $blue;
+    }
+    &-buttonActive {
+      background: $green;
+    }
   }
 }

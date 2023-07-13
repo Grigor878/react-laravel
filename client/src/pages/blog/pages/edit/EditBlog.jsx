@@ -19,7 +19,6 @@ const EditBlog = () => {
   }, [dispatch, id]);
 
   const { viewInfo } = useSelector((state) => state.blog);
-  //   console.log(viewInfo);
 
   const navigate = useNavigate();
 
@@ -37,8 +36,6 @@ const EditBlog = () => {
   }, [data?.description, data?.title]);
 
   const removeImg = (el) => {
-    // alert(`Clicked ${el}`);
-
     const updatedImages = images?.filter((image) => image !== el);
     setImages(updatedImages);
   };
@@ -119,14 +116,15 @@ const EditBlog = () => {
             </div>
 
             <div className="editBlog__main-imgs">
-              {images?.map((el) => {
-                return (
-                  <div key={el} className="editBlog__main-imgs-block">
-                    <img src={API_BASE_URL + `/images/` + el} alt={el} />
-                    <button onClick={() => removeImg(el)}>X</button>
-                  </div>
-                );
-              })}
+              {images &&
+                JSON.parse(viewInfo?.data[0]?.images?.name)?.map((el) => {
+                  return (
+                    <div key={el} className="editBlog__main-imgs-block">
+                      <img src={API_BASE_URL + `/images/` + el} alt={el} />
+                      <button onClick={() => removeImg(el)}>X</button>
+                    </div>
+                  );
+                })}
             </div>
 
             <div className="editBlog__main-dates">

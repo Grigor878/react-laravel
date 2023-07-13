@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\API;
 
 use App\Http\Controllers\Controller;
-use App\Models\Blog;
 use App\Models\BlogImage;
-use Facade\Ignition\DumpRecorder\Dump;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+// use App\Models\Blog;
+// use Facade\Ignition\DumpRecorder\Dump;
+// use Illuminate\Support\Facades\Auth;
 
 class BlogImgsController extends Controller
 {
