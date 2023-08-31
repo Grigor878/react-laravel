@@ -4,11 +4,11 @@ import Form from './form/Form'
 import './Login.scss'
 
 const Login = () => {
-  const { loading } = useSelector(state => state.auth)
+  const { loginLoading } = useSelector(state => state.auth)
 
   return (
     <div className='login' >
-      {loading
+      {loginLoading
         ? <p>Loading</p>
         : <>
           <h3>Log-In</h3>
