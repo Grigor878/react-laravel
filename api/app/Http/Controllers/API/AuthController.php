@@ -16,7 +16,7 @@ class AuthController extends Controller
      * @param Request $request
      * @return User 
      */
-    public function createUser(Request $request)
+    public function register(Request $request)
     {
         try {
             //Validated
@@ -43,7 +43,8 @@ class AuthController extends Controller
                 'password' => Hash::make($request->password),
             ]);
 
-            // $accessToken = $user->createToken("API TOKEN")->accessToken;
+            $user->markEmailAsVerified();
+
             return response()->json([
                 'status' => true,
                 'message' => 'User Created Successfully',
@@ -84,7 +85,12 @@ class AuthController extends Controller
             $credentials = $request->only(['email', 'password']);
             if (Auth::attempt($credentials)) {
                 $user = Auth::user();
+
                 $accessToken = $user->createToken('API TOKEN')->accessToken;
+
+                $user->access_token = $accessToken;
+
+                $user->save();
 
                 return response()->json([
                     'status' => true,
@@ -109,26 +115,6 @@ class AuthController extends Controller
         }
     }
 
-    // public function logout(Request $request)
-    // {
-    //     // dd($request->all());
-    //     $request->user()->Authorization()->delete();
-
-    //     return response([
-    //         'message' => 'You have been successfully logged out.',
-    //     ], 200);
-    // }
-
-    // public function logout()
-    // {
-    //     dd("2");
-    //     Auth::user()->token()->revoke();
-
-    //     return response()->json([
-    //         'message' => "User Logout Success"
-    //     ]);
-    // }
-
     public function AauthAcessToken()
     {
         return $this->hasMany('\App\OauthAccessToken');
@@ -136,15 +122,9 @@ class AuthController extends Controller
 
     public function logout()
     {
-        // dd($request->all());
-        // dd(Auth::user());
-        // Auth::user()->token()->revoke();
-
-        // return response()->json([
-        //     'message' => "Unauthenticated 848484"
-        // ], 401);
         if (Auth::check()) {
             Auth::user()->AauthAcessToken()->delete();
+            
         }
     }
 }

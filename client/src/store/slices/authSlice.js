@@ -74,8 +74,8 @@ const authSlice = createSlice({
       })
       .addCase(register.fulfilled, (state, action) => {
         state.registerLoading = false;
-        success(action.payload.message);
-        if (action.payload.status === true) {
+        if (action.payload?.status === true) {
+          success(action.payload?.message);
           setTimeout(() => {
             window.location.replace(`${APP_BASE_URL}/login`);
           }, 1000);
@@ -90,12 +90,14 @@ const authSlice = createSlice({
         error(`Error: ${action.error.message}`);
       })
       .addCase(login.fulfilled, (state, action) => {
-        state.isLoggedIn = true;
         state.loginLoading = false;
-        state.userInfo = action.payload.data.user;
-        state.token = action.payload.data.access_token;
-        localStorage.setItem("token", action.payload.data.access_token);
-        success("Welcome");
+        if (action.payload?.status === true) {
+          state.isLoggedIn = true;
+          state.userInfo = action.payload?.data.user;
+          state.token = action.payload?.data.access_token;
+          localStorage.setItem("token", action.payload?.data.access_token);
+          success("Welcome");
+        }
       })
       .addCase(logout.fulfilled, (state) => {
         state.isLoggedIn = false;
@@ -104,7 +106,7 @@ const authSlice = createSlice({
         localStorage.removeItem("token");
         sessionStorage.removeItem("blogPage");
         // console.log(action.payload.message); //
-      })
+      });
     // .addCase(deleteUserImg.fulfilled, (state, action) => {
     //   console.log(action.payload);
     // });

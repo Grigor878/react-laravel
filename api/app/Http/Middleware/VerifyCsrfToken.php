@@ -12,14 +12,14 @@ class VerifyCsrfToken extends Middleware
      * @var array<int, string>
      */
     protected $except = [
-        'http://blog-api.loc/api/register',
-        'http://blog-api.loc/api/login',
-        'http://blog-api.loc/api/uploadImg',
-        'http://blog-api.loc/api/deleteImg',
-        'http://blog-api.loc/api/logout',
-        'http://blog-api.loc/api/blog',
-        'http://blog-api.loc/api/blog/*',
-        'http://blog-api.loc/api/uploadBlogImgs',
-        'http://blog-api.loc/api/blogSearch',
+        'http://react-laravel.loc/api/register',
+        'http://react-laravel.loc/api/login',
+        'http://react-laravel.loc/api/uploadImg',
+        'http://react-laravel.loc/api/deleteImg',
+        'http://react-laravel.loc/api/logout',
+        'http://react-laravel.loc/api/blog',
+        'http://react-laravel.loc/api/blog/*',
+        'http://react-laravel.loc/api/uploadBlogImgs',
+        'http://react-laravel.loc/api/blogSearch',
     ];
 }
